@@ -1,0 +1,38 @@
+<extend name="Public/base"/>
+
+<block name="header">
+    <li class="active"><a href="javascript:;">安装协议</a></li>
+    <li class="active"><a href="javascript:;">环境检测</a></li>
+    <li class="active"><a href="javascript:;">创建数据库</a></li>
+    <li><a href="javascript:;">安装</a></li>
+    <li><a href="javascript:;">完成</a></li>
+</block>
+
+<block name="body">
+    <h1>创始人帐号信息</h1>
+    <form action="__SELF__" method="post" target="_self">
+        <div class="create-database">
+            <div>
+                <input type="text" name="admin[]" value="admin">
+                <span>用户名</span>
+            </div>
+            <div>
+                <input type="password" name="admin[]" value="admin">
+                <span>密码</span>
+            </div>
+            <div>
+                <input type="password" name="admin[]" value="admin">
+                <span>确认密码</span>
+            </div>
+            <div>
+                <input type="text" name="admin[]" value="ytf606@gmail.com">
+                <span>邮箱，请填写正确的邮箱便于收取提醒邮件</span>
+            </div>
+        </div>
+    </form>
+</block>
+
+<block name="footer">
+    <a class="btn btn-success btn-large" href="{:U('SaeInstall/step1')}">上一步</a>
+    <button id="submit" type="button" class="btn btn-primary btn-large" onclick="$('form').submit();return false;">下一步</button>
+</block>
