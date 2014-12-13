@@ -11,7 +11,7 @@ use Common\Controller\Addon;
     class HelloWorldAddon extends Addon{
 
         public $info = array(
-            'name'=>'HelloWorld',
+            'name'=>'Myhello',
             'title'=>'微信入门案例',
             'description'=>'这是一个简单的入门案例',
             'status'=>1,
