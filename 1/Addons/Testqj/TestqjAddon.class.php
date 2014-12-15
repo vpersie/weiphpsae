@@ -1,6 +1,6 @@
 <?php
 
-namespace Addons/Testqj;
+namespace Addons\Testqj;
 
 use Comon\Controller\Addon;
 
