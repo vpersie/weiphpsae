@@ -1802,3 +1802,31 @@ function condition_tips($addon_condition) {
 function lastsql() {
 	dump ( M ()->getLastSql () );
 }
+function get_roomtype()
+{
+        $map ['token'] = get_token ();
+        $map ['hid'] = I('get.hid',0,'int');
+        $data = M('hotel_room_type')->where($map)->field('id,name')->select();
+        foreach ($data as $value) {
+                $list[$value['id']] = $value['name'];
+        }
+    return $list;
+}
+function get_roomtypename($roomtype)
+{
+        $map ['token'] = get_token ();
+        $map ['id'] = $roomtype;
+        $map ['hid'] = I('get.hid',0,'int');
+        $data = M('hotel_room_type')->where($map)->getField('name');
+    return $data;
+}
+function get_hotelsname($id)
+{
+        $map ['token'] = get_token ();
+        $map ['id'] = $id;
+        $data = M('hotel')->where($map)->getField('sname');
+    return $data;
+}
+function to_order_date($date){
+        return date('m月d日', strtotime($date));
+}
