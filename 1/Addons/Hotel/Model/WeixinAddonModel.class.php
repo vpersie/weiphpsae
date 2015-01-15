@@ -8,9 +8,22 @@ use Home\Model\WeixinModel;
  */
 class WeixinAddonModel extends WeixinModel{
 	function reply($dataArr, $keywordArr = array()) {
-		$config = getAddonConfig ( 'Hotel' ); // 获取后台插件的配置参数	
-		//dump($config);
 
+		$config = getAddonConfig ( 'Hotel' ); // 获取后台插件的配置参数	
+
+		$hotel = M('hotel')->where(array('token'=>get_token()))->find();
+		if($hotel){
+			$url = addons_url('Hotel://Web/index',array('token' => get_token(),'openid' => get_openid() ) );
+			$articles [0] = array (
+				'Title' => $hotel ['name'],
+				'Description' => $hotel ['name'] . "\n电话：" . $hotel ['tel'] . "\n地址：" . $hotel['address'] . "\n点击进入在线订房。",
+				'PicUrl' => get_cover_url($hotel['image']),
+				'Url' => $url 
+			);
+			$this->replyNews ( $articles );
+		} else {
+			$this->replyText('亲，老板正在配置酒店，请稍后再来...');
+		}
 	} 
 
 	// 关注公众号事件
