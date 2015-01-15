@@ -22,7 +22,7 @@ class WeixinAddonModel extends WeixinModel{
 			);
 			$this->replyNews ( $articles );
 		} else {
-            $url = addons_url('Hotel://Web/index',array('token' => get_token(),'openid' => get_openid() ) );
+            $url = addons_url('Hotel://Web/hotel',array('token' => get_token(),'openid' => get_openid() ) );
             $articles [0] = array (
 				'Title' => $hotel ['name'],
 				'Description' => $hotel ['name'] . "\n电话：" . $hotel ['tel'] . "\n地址：" . $hotel['address'] . "\n点击进入在线订房。",
