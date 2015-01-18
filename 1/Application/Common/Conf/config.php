@@ -89,7 +89,7 @@ return array(
     ), //图片上传相关配置（文件上传类配置）
 
     'PICTURE_UPLOAD_DRIVER'=>defined('SAE_TMP_PATH') ? 'sae' : 'local',	
-	
+	'FILE_UPLOAD_TYPE'=>'Sae',
     //本地上传文件驱动配置
     'UPLOAD_SAE_CONFIG'=>array(
         'domain' => defined('SAE_STORAGE') ? SAE_STORAGE : 'weiphp',
