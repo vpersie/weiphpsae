@@ -1,0 +1,64 @@
+<extend name="Base/common" />
+<block name="body">
+  <div class="span9 page_message">
+    <section id="contents"> 
+      <include file="Addons/_nav" /> 
+      <!-- 数据列表 -->
+      <div class="data-table">
+        <!--主体-->	
+<volist name="ddcpdatas" id="dd">
+<div class="main">
+    	<div class="p_mod">
+    		<h2 class="p_mod_title">订单信息</h2>
+            <div class="car">				
+					<div class="car_list clearfix cl">
+						<ul>
+						<volist name="dd.dishes_count_datas" id="ddcp">
+							<li style="float:left;">
+								<div class="car_content clearfix">
+								  <h3><a href="#">{$ddcp.name}</a></h3>
+									 <a href="#">
+									  <img src="__ROOT__{$ddcp.icon|get_cover='path'}" style="width:240px;height:200px;" />
+									 </a>
+									 <div class="car_property">
+										<span class="price_now">单价：<font>￥{$ddcp.price}</font></span>
+										<div class="o_num_input clearfix" id="{$ddcp.id}">
+											
+											数量：{$ddcp.num}                         
+										</div>
+															 
+									 </div>
+								</div>
+							</li>
+						</volist>
+						</ul>						
+					</div>
+				<div style=" padding-top:30px;clear: both;"><span class="price_now" id="total_fee">总价格：<font>￥{$dd.yhprice} </font></span></div>
+            </div>            
+    	</div>
+</div>
+<style type="text/css">
+.desks{ display: none;}
+</style>
+<style>
+.deploy_ctype_tip{z-index:1001;width:100%;text-align:center;position:fixed;top:50%;margin-top:-23px;left:0;}.deploy_ctype_tip p{display:inline-block;padding:13px 24px;border:solid #d6d482 1px;background:#f5f4c5;font-size:16px;color:#8f772f;line-height:18px;border-radius:3px;}
+</style>
+<div class="main" id="wrap">    
+	<div class="p_mod o_address">
+		<h2 class="p_mod_title">接收信息</h2>
+		<div id="city">
+		<ul>
+			<li style="line-height:35px;"><strong>姓名：</strong>{$dd.truename}</li>
+			<li style="line-height:35px;"><strong>手机：</strong>{$dd.tel}</li>
+			<li style="line-height:35px;"><strong>地址：</strong>{$dd.address}</li>
+			<li style="line-height:35px;"><strong>备注：</strong>{$dd.beizhu}</li>
+		</ul>
+		</div>
+	</div>
+</div>
+</volist>
+      </div>
+      <div class="page"> {$_page|default=''} </div>
+    </section>
+  </div>
+</block>

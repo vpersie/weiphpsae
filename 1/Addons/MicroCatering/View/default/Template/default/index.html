@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<title>微餐饮</title>
+<link href="{:ADDON_PUBLIC_PATH}/../Template/default/style/wcy_shop.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+
+<!--左侧菜单-->
+<script type="text/javascript">
+	var cpinfourl = "{:U('getcpinfobyid')}";
+	function changeRO(mystr, index) {		
+		$(".arolist").hide();
+		$(".style5").removeClass("style5").addClass('style6');	
+		
+		$("#A"+mystr+index).show();
+		$("#B"+mystr+index).removeClass("style6").addClass('style5');
+	}
+	$(document).ready(function(){
+		$('.class-conlist').click(function(){
+			$(this).toggleClass('class-conlist1');
+		})
+	})
+</script>
+<!--商品弹出详情页-->
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/../Template/default/js/centent_js.js"></script>
+</head>
+
+<body>
+<div class="shop_dome">
+    <nav id="navBar">
+        <dl>
+			<volist name="selType" id="cxdata">
+				<dd class="style{$key==0?'5':'6'}" id="Brolist{$cxdata.id}" onclick="changeRO('rolist',{$cxdata.id})">
+	            	<a href="####">{$cxdata.name}</a>
+	            </dd>					  
+			</volist>           
+        </dl>
+    </nav>
+    <section id="infoSection">
+        <article>
+			<volist name="selType" id="cxdata">				
+				<div id="Arolist{$cxdata.id}" class="arolist"   style="display:{$key==0?'block':'none'};"  >              
+				  <volist name="cxdata.cpinfo" id="cp">					
+					<dl id="A{$cp.id}" >                    
+						<dt><a href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/cpinfo/ctid/{$ctid}/cpid/{$cp.id}.html"><h3>{$cp.name}</h3></a></dt>                    
+						<dd>                        
+							<a href="javascript:void(0)" class="dataIn" onclick="openDiv({$cp.id})"> 
+								<img src="__ROOT__{$cp.icon|get_cover='path'}" alt="" title="" />
+								
+								<span style="font-size:10px;display:{$cp['yhname'] != '' ?'block':'none'};" >{$cp.yhname}</span>
+							</a>
+						</dd>                    
+						<dd>                        
+							<em>{$cp.price}元/份</em>                    
+						</dd>                 
+						<input type="checkbox" class="favourite" style="border:0;" value="{$cp.id}" onclick="favourite(this, event);">                    
+						<!--  <div class="class-conlist"></div>-->             
+					</dl>				  
+				  </volist>    
+				</div>				  
+			</volist>
+        </article>
+    </section>
+<!------------弹出浮动层------------>   
+    <!--弹出浮动层-A-->
+    <div id="lightA" class="white_content" style="background:#e5e3e3; display:none;">
+        <div class="mModal" style="z-index: 900;"><a href="javascript:void(0)" style="height: 615px;"></a></div>
+        <div class="mDialog freeSet" data-ffix-top="135" style="z-index: 901;top: 50px;">
+            <div class="content">
+                <b id="rec" style="display:none" >推荐</b>
+                <img src="" id="psrc">
+                <h2 id="pname"></h2>
+                <p id="pkeyword"></p>
+            </div>
+            <a class="x" href="javascript:void(0)" onClick="closeDiv()">X</a>
+        </div> 
+    </div> 
+    <div id="fade" class="black_overlay"></div>    
+   
+    <div class="clear" style="clear:both;"></div>   
+<!------------底部------------>   
+    <div id="footer_menu" class="footer footer_menu">
+        <ul class="clear">
+            <li><a href="{:U('show?id='.$ctid)}"><span class="icons icons_1"></span><label>首页</label></a></li>
+            <li><a href="{:U('show?id='.$ctid)}" class="onactive"><span class="icons icons_2"></span><label>菜单</label></a></li>
+            <li><a href="{:U('myorder?ctid='.$ctid)}"><span class="icons icons_3"></span><label>我的订单</label></a></li>
+            <!-- <li><a href="{:U('mylove?ctid='.$ctid)}"><span class="icons icons_4"></span><label>我喜欢</label></a></li> -->
+            <li><a href="{:U('myshop?ctid='.$ctid)}" id="my_menu"><span class="icons icons_5"></span></a></li><label id="num" class="num"></label>
+        </ul>
+</div>
+    
+</div>
+<script>
+	 function setHeight(){
+            var  cHeight;
+            cHeight = document.documentElement.clientHeight;
+            cHeight = cHeight +"px"
+            document.getElementById("navBar").style.height =  cHeight;
+            document.getElementById("infoSection").style.height =  cHeight;
+        }
+
+	 window.addEventListener("DOMContentLoaded", function(){
+         setHeight();
+     }, false);
+     window.onresize = function(){setHeight();}
+</script>	
+</div>
+</body>
+</html>

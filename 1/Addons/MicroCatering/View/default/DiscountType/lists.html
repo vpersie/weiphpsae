@@ -1,0 +1,167 @@
+<extend name="Base/common" />
+<block name="body">
+  <div class="span9 page_message">
+    <section id="contents"> 
+      <include file="Addons/_nav" />  
+      <div class="table-bar">
+        <div class="fl">
+          <empty name="model.extend">
+			<div class="tools">
+				餐厅：
+				<select id="sel_ct">
+					<volist name="list_ctdata" id="ctdata">
+					  <option value="{$ctdata.id}" <php> if($ctdata["id"] == $ctid){ echo 'selected="selected"';}</php> >{$ctdata.title}</option>
+					</volist>
+				</select>				
+				<if condition="$add_button"><php> $add_url || $add_url = U('add?ctid='.$ctid.'&model='.$model['id']);</php><a class="btn" href="{$add_url}">新增</a></if>
+				<if condition="$add_button"><a class="btn" id="a_fzadd" href="#div_selfzadd">复制添加</a></if>
+				<if condition="$del_button"><php> $del_url || $del_url = U('del?ctid='.$ctid.'&model='.$model['id']);</php><button class="btn ajax-post confirm" target-form="ids" url="{$del_url}">删 除</button></if>                
+				&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn" id="a_yhset" href="<php> echo U('yhset?ctid='.$ctid);</php>">优惠菜品设置</a>
+			</div>
+          </empty>
+        </div>
+        <!-- 高级搜索 -->
+        <if condition="$search_button">
+        <div class="search-form fr cf">
+          <div class="sleft">
+            <php> $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists',array('model'=>$model['name']));</php>
+            <input type="text" name="{$model['search_key']|default='title'}" class="search-input" value="{:I('title')}" placeholder="请输入关键字">
+            <a class="sch-btn" href="javascript:;" id="search" url="{$search_url}"><i class="btn-search"></i></a> </div>
+        </div>
+        </if>
+      </div>
+      
+      <!-- 数据列表 -->
+      <div class="data-table">
+        <div class="table-striped">
+          <table cellpadding="0" cellspacing="1">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <if condition="$check_all"><th class="row-selected row-selected"> <input class="regular-checkbox check-all" id="checkAll" type="checkbox"><label for="checkAll"></label></th></if>
+                <volist name="list_grids" id="field">
+                  <th>{$field.title}</th>
+                </volist>
+              </tr>
+            </thead>
+            
+            <!-- 列表 -->
+            <tbody id="tbd_listsbody">
+              <volist name="list_data" id="data">
+                <tr>
+                  <if condition="$check_all"><td><input class="regular-checkbox ids" type="checkbox" value="{$data['id']}" id="ids_{$data['id']}" name="ids[]"><label for="ids_{$data['id']}"></label></td></if>
+                  <volist name="list_grids" id="grid">
+                    <td>{:get_list_field($data,$grid,$model)}</td>
+                  </volist>
+                </tr>
+              </volist>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="page"> {$_page|default=''} </div>
+    </section>
+	
+	<div style="display: none;">
+		<div id="div_selfzadd" style="width:250px;">
+			<div>
+				把餐厅
+			</div>
+			<div>
+				<select id="sel_ctfrom">
+					<volist name="list_ctdata" id="ctdata">
+					  <option value="{$ctdata.id}" >{$ctdata.title}</option>
+					</volist>
+				</select>
+			</div>
+			<div>
+				的优惠复制添加到餐厅
+			</div>
+			<div >
+				<select id="sel_ctto">
+					<volist name="list_ctdata" id="ctdata">
+					  <option value="{$ctdata.id}" >{$ctdata.title}</option>
+					</volist>
+				</select>
+			</div>
+			<div style="margin-top:30px;">
+				<button class="btn" id="btn_fzadd" type="button" target-form="form-horizontal">开始复制</button>			
+				<button class="btn" type="button" onclick="$.fancybox.close();return false;" target-form="form-horizontal">取 消</button>
+			</div>
+		</div>
+	</div>
+  </div>
+</block>
+<block name="script"> 	
+	<script type="text/javascript" src="/Addons/MicroCatering/View/default/Public/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="/Addons/MicroCatering/View/default/Public/fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+  <script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+
+	$("a#a_fzadd").fancybox({
+				'modal'	: true,
+				'padding':40,
+				'showCloseButton':true,
+				'transitionIn'	: 'elastic',
+				'transitionOut'	: 'elastic'
+			});
+	
+	
+	//请求优惠分类列表
+	$("#sel_ct").change(function(){
+		window.location.href = "{$sel_ct_url}".replace("%7Bid%7D",$(this).val());
+	});
+	
+	//复制添加
+	$("#btn_fzadd").click(function(){
+		var fromid  = $("#sel_ctfrom").val();
+		var toid =$("#sel_ctto").val();
+		if(fromid == toid){alert("哎呀,不支持相同餐厅复制!");return false;}
+		var url ="{:U('ctfz')}";
+		_postAjax(url,{"from":fromid,"to":toid},function(result){			
+			alert(result);			
+			window.location.reload();
+		});
+	});
+	
+	
+	//ajax
+	var isstartajax = false;
+	function _postAjax(url,datas,backfn){
+		if(isstartajax){return false;}
+		isstartajax = true;
+		$.ajax({ 
+			url: url,
+			data:datas,			
+			type:"POST",
+			success: function(result){
+				isstartajax=false;
+				if(backfn){
+					backfn(result);
+				}
+			},error:function(){isstartajax=false;}
+		});
+	}
+});
+</script> 
+</block>

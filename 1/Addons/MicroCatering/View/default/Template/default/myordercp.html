@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<title>微餐饮-购物车</title>
+<link href="{:ADDON_PUBLIC_PATH}/../Template/default/style/myorder.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/../Template/default/js/myorder.js"></script>
+</head>
+
+<body>
+ <!--头部-->
+        <HEADER class="ts1">
+            <A class="u_back fl" href="javascript:history.go(-1)">
+            </A>
+            <UL class="topbar fr">
+                <LI>
+                    <A class="icon_user" href="{:U('myorder?ctid='.$ctid)}">
+                        <I>
+                        </I>
+                        我的
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_shopping" href="{:U('myshop?ctid='.$ctid)}">
+                        <I>
+                        </I>
+                        购物车
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_class" href="{:U('show?id='.$ctid)}">
+                        <I>
+                        </I>
+                        菜单
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_index" href="{:U('show?id='.$ctid)}">
+                        <I>
+                        </I>
+                        主页
+                    </A>
+                </LI>
+            </UL>
+        </HEADER>
+		<!--主体-->	
+<volist name="ddcpdatas" id="dd">
+<div class="main">
+    	<div class="p_mod">
+    		<h2 class="p_mod_title">订单信息</h2>
+            <div class="car">
+				
+					<div class="car_list clearfix">					
+						<volist name="dd.dishes_count_datas" id="ddcp">
+							<div class="car_content clearfix">
+							  <h3><a href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/cpinfo/ctid/{$ctid}/cpid/{$ddcp.id}.html">{$ddcp.name}</a></h3>
+								 <a href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/cpinfo/ctid/{$ctid}/cpid/{$ddcp.id}.html">
+								  <img src="__ROOT__{$ddcp.icon|get_cover='path'}" />
+								 </a>
+								 <div class="car_property">
+									<span class="price_now">单价：<font>￥{$ddcp.price}</font></span>
+									<div class="o_num_input clearfix" id="{$ddcp.id}">
+										
+										数量：{$ddcp.num}                         
+									</div>
+														 
+								 </div>
+							</div>
+						</volist>							
+					</div>			
+				<p><span class="price_now" id="total_fee">总价格：<font>￥{$dd.yhprice} </font></span></p>				
+            </div>            
+    	</div>
+</div>
+<style type="text/css">
+.desks{ display: none;}
+</style>
+<style>
+.deploy_ctype_tip{z-index:1001;width:100%;text-align:center;position:fixed;top:50%;margin-top:-23px;left:0;}.deploy_ctype_tip p{display:inline-block;padding:13px 24px;border:solid #d6d482 1px;background:#f5f4c5;font-size:16px;color:#8f772f;line-height:18px;border-radius:3px;}
+</style>
+<div class="main" id="wrap">    
+	<div class="p_mod o_address">
+		<h2 class="p_mod_title">接收信息</h2>
+		<div id="city">
+		<ul>
+			<li style="line-height:35px;"><strong>姓名：</strong>{$dd.truename}</li>
+			<li style="line-height:35px;"><strong>手机：</strong>{$dd.tel}</li>
+			<li style="line-height:35px;"><strong>地址：</strong>{$dd.address}</li>
+		</ul>
+		</div>
+	</div>
+</div>
+</volist>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<title>微餐饮-我的订单</title>
+<link href="{:ADDON_PUBLIC_PATH}/../Template/default/style/myorder.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/../Template/default/js/myorder.js"></script>
+</head>
+
+<body>
+ <BODY>
+        <!--头部-->
+        <HEADER class="ts1">
+            <A class="u_back fl" href="javascript:history.go(-1)">
+            </A>
+            <UL class="topbar fr">
+                <LI>
+                    <A class="icon_user" href="{:U('myorder?ctid='.$ctid)}">
+                        <I>
+                        </I>
+                        我的
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_shopping" href="{:U('myshop?ctid='.$ctid)}">
+                        <I>
+                        </I>
+                        购物车
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_class" href="{:U('show?id='.$ctid)}">
+                        <I>
+                        </I>
+                        菜单
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_index" href="{:U('show?id='.$ctid)}">
+                        <I>
+                        </I>
+                        主页
+                    </A>
+                </LI>
+            </UL>
+        </HEADER>
+        <!--主体-->
+        <DIV class="p_floatbox">
+            <DIV class="f_list_car p_buy clearfix" id="p_buy">
+                <SPAN class="all_price">
+                    总价格：
+                    <FONT id="all_price">
+                        ￥0
+                    </FONT>
+                </SPAN>
+                <SPAN>
+                    总共
+                    <FONT id="all_numb">
+                        0
+                    </FONT>
+                    件商品
+                </SPAN>
+                <A class="p_btn_buy" href="{:U('myshop?ctid='.$ctid)}">
+                    <SPAN class="ts1">
+                        进入购物车
+                    </SPAN>
+                </A>
+            </DIV>
+        </DIV>
+		<if condition="$success eq '1'">
+			<a class="more" id="show_more" href="javascript:void(0);" style="color:#fff;background:#f90"></a>
+			<script type="text/javascript">
+			$(function() {
+				$('#show_more').show().html('订购成功').delay(1600).slideUp(1600);
+				return;
+			});
+			</script>
+		</if>
+        <DIV class="u_main">
+            <UL class="u_order clearfix">
+                <LI>
+                    <volist name="myorderdatas" id="dd">
+						<DIV class="u_text">
+							<H2>{$dd.ctime}</H2>
+							<if condition='$dd.state == "1"' >
+							<h2 style="color:red;">商家已确认</h2>
+							</if>
+							<P class="u_color1">
+								数量：<FONT class="org">{$dd.cpcount}</FONT>
+								总价：<FONT class="org"><u>￥{$dd.price}</u>/￥{$dd.yhprice}</FONT>
+								优惠：<FONT class="org">￥{$dd.price-$dd.yhprice}</FONT>
+							</P>
+							<p>备注:{$dd.beizhu}</p>
+							<P>
+								<SPAN class="u_mt5">
+									订购人：{$dd.truename}<br/>联系电话：{$dd.tel}
+								</SPAN>
+								<A class="u_btn ts1" style="margin-left: 10px;" href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/lookcp/ctid/{$ctid}/ddid/{$dd.id}.html">
+									查看
+								</A>
+								<if condition='$dd.statekz == "0"' >
+								<A class="u_btn ts1" href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/delmyorder/ctid/{$ctid}/ddid/{$dd.id}.html">
+									取消
+								</A>
+								<else/>
+								<A class="ts1" style="float:right;" href="#">
+								{$dd['statekz']|get_name_by_status='statekz',$myorderid}
+								</A>
+								</if>
+							</P>
+						</DIV>					  
+					</volist>                    
+                </LI>
+            </UL>
+        </DIV>
+    </BODY>
+</html>

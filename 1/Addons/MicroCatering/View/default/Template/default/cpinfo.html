@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<title>微餐饮-菜品信息</title>
+<link href="{:ADDON_PUBLIC_PATH}/../Template/default/style/myorder.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/../Template/default/js/myorder.js"></script>
+</head>
+
+<body>
+ <BODY>
+        <!--头部-->
+        <HEADER class="ts1">
+            <A class="u_back fl" href="javascript:history.go(-1)">
+            </A>
+            <UL class="topbar fr">
+                <LI>
+                    <A class="icon_user" href="{:U('myorder?ctid='.$ctid)}">
+                        <I>
+                        </I>
+                        我的
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_shopping" href="{:U('myshop?ctid='.$ctid)}">
+                        <I>
+                        </I>
+                        购物车
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_class" href="{:U('show?id='.$ctid)}">
+                        <I>
+                        </I>
+                        菜单
+                    </A>
+                </LI>
+                <LI>
+                    <A class="icon_index" href="{:U('show?id='.$ctid)}">
+                        <I>
+                        </I>
+                        主页
+                    </A>
+                </LI>
+            </UL>
+        </HEADER>
+        <!--主体-->
+        <DIV class="p_floatbox">
+            <DIV class="f_list_car p_buy clearfix" id="p_buy">
+                <SPAN class="all_price">
+                    总价格：
+                    <FONT id="all_price" price="{$sumprice}">
+                        ￥{$sumprice}
+                    </FONT>
+                </SPAN>
+                <SPAN>
+                    总共
+                    <FONT id="all_numb" count="{$sumcount}">
+                        {$sumcount}
+                    </FONT>
+                    件商品
+                </SPAN>
+                <A class="p_btn_buy" href="{:U('myshop?ctid='.$ctid)}">
+                    <SPAN class="ts1">
+                        进入购物车
+                    </SPAN>
+                </A>
+            </DIV>
+        </DIV>
+        <DIV class="main">
+            <DIV class="banner" id="banner">
+                <A href="javascript:;">
+                    <IMG alt="{$cpdata.name}" src="__ROOT__{$cpdata.icon|get_cover='path'}">
+                    <H1 class="p_title">
+                        {$cpdata.name}
+                    </H1>
+                </A>
+            </DIV>
+            <DIV class="f_list_car p_buy clearfix">
+                <SPAN class="all_price all_price_this">
+                    价格：
+                    <FONT>
+                        ￥{$cpdata.yhprice}
+                    </FONT>
+                    <SPAN style="text-decoration: line-through;">
+                        原价： {$cpdata.price}元
+                    </SPAN>
+                </SPAN>
+                <!--检查库存-->
+                <A class="p_btn_buy" href="javascript:;">
+                    <SPAN class="ts1" onclick="add_cart(1,parseFloat('{$cpdata.price}'));">
+                        加入购物车
+                    </SPAN>
+                </A>
+            </DIV>
+            <SCRIPT type="text/javascript">
+                function add_cart(num,price) {
+                    $.ajax({
+                        url: "/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/add_cart/ctid/{$ctid}/cpid/{$cpdata.id}.html",
+                        success: function(data) {
+                            if (data=="ok") {
+                                var oldprice = parseFloat($('#p_buy #all_price').attr("price"));
+								oldprice=oldprice+price;
+								$('#p_buy #all_price').attr("price",oldprice)
+								$('#p_buy #all_price').html('￥'+oldprice);
+								var oldcount = parseInt($('#p_buy #all_numb').attr("count"));
+								oldcount = oldcount+num;
+								$('#p_buy #all_numb').attr("count",oldcount);
+								$('#p_buy #all_numb').html(oldcount);
+								$('#total_fee font').html('￥'+oldprice);
+                            }
+                        }
+                    })
+                }
+            </SCRIPT>
+            <DIV class="p_mod p_short_desc">
+                <H2 class="p_mod_title">
+                    菜品简介
+                </H2>
+                <DIV class="p_con">
+                    <P>{$cpdata.introduction}</P>
+                </DIV>
+                <A class="p_to_desc" href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/cppicinfo/ctid/{$ctid}/cpid/{$cpdata.id}.html">
+                    查看图文详情
+                    <SPAN class="gt">
+                    </SPAN>
+                </A>
+            </DIV>           
+            <SECTION class="f_list f_mod i_list">
+                <H2 class="p_mod_title">
+                    {$yhlists.name}
+                </H2>
+                <UL class="clearfix" id="f_list">
+					 <volist name="yhlists.cpinfo" id="cp">
+						<LI>
+							<DIV class="f_list_l">
+								<A href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/cpinfo/ctid/{$ctid}/cpid/{$cp.id}.html">
+									<IMG src="__ROOT__{$cp.icon|get_cover='path'}">
+									<H3>
+										{$cp.name}
+									</H3>
+									<P class="tui_price ts2" style="color: rgb(102, 102, 102); font-size: 14px; font-weight: normal; text-decoration: line-through;">
+										原价：{$cp.price}&nbsp;元
+									</P>
+									<DIV class="hot">
+										<STRONG style="display: none;">
+											热卖
+										</STRONG>
+									</DIV>
+								</A>
+							</DIV>
+							<DIV class="f_list_r">
+								<P class="tui_price ts2">
+									<STRONG>
+										￥{$cp.price}
+									</STRONG>
+								</P>
+								<A class="u_order_return ts1" id="in_car" href="/index.php?s=/home/addons/execute/_addons/MicroCatering/_controller/MicroCatering/_action/cpinfo/ctid/{$ctid}/cpid/{$cp.id}.html">
+									去购买
+								</A>
+							</DIV>
+						</LI>  
+					</volist>
+                </UL>
+            </SECTION>
+            <BR>
+         </DIV>
+    </BODY>
+</html>

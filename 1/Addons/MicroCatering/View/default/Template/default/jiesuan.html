@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="description" content="">
+		<title>
+			微餐饮-购物车结算
+		</title>
+		<link href="{:ADDON_PUBLIC_PATH}/../Template/default/style/myorder.css?v={:SITE_VERSION}"
+		rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js">
+		</script>
+		<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/../Template/default/js/myorder.js">
+		</script>
+	</head>
+	<body>
+		<BODY>
+			<!--头部-->
+			<HEADER class="ts1">
+				<A class="u_back fl" href="javascript:history.go(-1)">
+				</A>
+				<UL class="topbar fr">
+					<LI>
+						<A class="icon_user" href="{:U('myorder?ctid='.$ctid)}">
+							<I>
+							</I>
+							我的
+						</A>
+					</LI>
+					<LI>
+						<A class="icon_shopping" href="{:U('myshop?ctid='.$ctid)}">
+							<I>
+							</I>
+							购物车
+						</A>
+					</LI>
+					<LI>
+						<A class="icon_class" href="{:U('show?id='.$ctid)}">
+							<I>
+							</I>
+							菜单
+						</A>
+					</LI>
+					<LI>
+						<A class="icon_index" href="{:U('show?id='.$ctid)}">
+							<I>
+							</I>
+							主页
+						</A>
+					</LI>
+				</UL>
+			</HEADER>
+			<!--主体-->
+			<DIV class="p_floatbox">
+				<DIV class="f_list_car p_buy clearfix" id="p_buy">
+					<SPAN class="all_price">
+						总价格：
+						<FONT id="all_price" price="{$sumprice}">
+							￥{$sumprice}
+						</FONT>
+					</SPAN>
+					<SPAN>
+						总共
+						<FONT id="all_numb" count="{$sumcount}">
+							{$sumcount}
+						</FONT>
+						件商品
+					</SPAN>
+					<A class="p_btn_buy" href="{:U('myshop?ctid='.$ctid)}">
+						<SPAN class="ts1">
+							进入购物车
+						</SPAN>
+					</A>
+				</DIV>
+			</DIV>
+			<style>
+				.deploy_ctype_tip{z-index:1001;width:100%;text-align:center;position:fixed;top:50%;margin-top:-23px;left:0}.deploy_ctype_tip
+				p{display:inline-block;padding:13px 24px;border:solid#d6d482 1px;background:#f5f4c5;font-size:16px;color:#8f772f;line-height:18px;border-radius:3px}
+			</style>
+			<form method="post" action="{:U('jiesuan?ctid='.$ctid)}" onsubmit="return tgSubmit()">
+				<input type="hidden" name="yhprice" value="{$sumprice}" />
+				<input type="hidden" name="cpcount" value="{$sumcount}" />
+				<input type="hidden" name="ctid" value="{$ctid}" />
+				<a class="more" id="show_more" href="javascript:void(0);" style="color:#fff;background:#f90">
+					请先填写点餐方式等信息
+				</a>
+				<input type="hidden" name="diningtype" id="diningtype" value="3" />
+				<div class="p_mod">
+					<h2 class="p_mod_title">
+						您的点餐方式
+					</h2>
+					<dl class="f_order_list single dining_type">
+						<dd>
+							<label for="table_0">
+								点餐
+							</label>
+							<input type="radio" id="table_0" name="diningtypes" title="点餐" value="0" />
+						</dd>
+						<dd>
+							<label for="table_2">
+								外卖
+							</label>
+							<input type="radio" id="table_2" name="diningtypes" title="外卖" value="2"/>
+						</dd>
+						<dd class="on">
+							<label for="table_1">
+								预定
+							</label>
+							<input type="radio" id="table_1" name="diningtypes" title="预定" value="1" checked="true" />
+						</dd>
+					</dl>
+				</div>
+				<div class="p_mod table_0 table_2 table_1 desks" id="desks" style="display: block;">
+					<h2 class="p_mod_title">
+						请填写就餐时间
+					</h2>
+					<dl class="f_order_list single">
+						<select name="buytimestamp" id="buytimestamp" onchange="tables()">
+							<volist name="nowdates" id="d">
+								<option value="{$d.value}">{$d.text}</option>
+							</volist>
+														
+						</select>
+						<select name="hour" id="hour" onchange="tables()">
+							<option value="" selected>
+								选择时间
+							</option>
+							<option value="0">
+								0时
+							</option>
+							<option value="1">
+								1时
+							</option>
+							<option value="2">
+								2时
+							</option>
+							<option value="3">
+								3时
+							</option>
+							<option value="4">
+								4时
+							</option>
+							<option value="5">
+								5时
+							</option>
+							<option value="6">
+								6时
+							</option>
+							<option value="7">
+								7时
+							</option>
+							<option value="8">
+								8时
+							</option>
+							<option value="9">
+								9时
+							</option>
+							<option value="10">
+								10时
+							</option>
+							<option value="11">
+								11时
+							</option>
+							<option value="12">
+								12时
+							</option>
+							<option value="13">
+								13时
+							</option>
+							<option value="14">
+								14时
+							</option>
+							<option value="15">
+								15时
+							</option>
+							<option value="16">
+								16时
+							</option>
+							<option value="17">
+								17时
+							</option>
+							<option value="18">
+								18时
+							</option>
+							<option value="19">
+								19时
+							</option>
+							<option value="20">
+								20时
+							</option>
+							<option value="21">
+								21时
+							</option>
+							<option value="22">
+								22时
+							</option>
+							<option value="23">
+								23时
+							</option>
+						</select>						
+					</dl>
+				</div>
+				<div class="p_mod table_0 table_1 desks" id="desks" style="display: block;">
+					<h2 class="p_mod_title">
+						请选择桌台
+					</h2>
+					<dl class="f_order_list single">
+						<volist name="mytables" id="table">
+							<dd id="table_radio_{$table.id}">
+								<label for="r_table_{$table.id}">
+									{$table.ztname}									
+								</label>
+								<input id="r_table_{$table.id}" type="radio" class="radio_tableid" name="tablemanage_id" value="{$table.id}" />
+							</dd>
+						</volist>
+					</dl>
+				</div>
+				<div class="main" id="wrap">
+					<div class="p_mod o_address">
+						<h2 class="p_mod_title">
+							请填写个人信息
+						</h2>
+						<div id="city">
+							<ul>
+								<li class="addContact">
+									<strong>
+										姓名：
+									</strong>
+									<input type="text" placeholder="请输入姓名" id="truename" name="truename" value=""
+									/>
+								</li>
+								<li class="addContact">
+									<strong>
+										手机：
+									</strong>
+									<input type="text" placeholder="请输入联系人手机号" id="tel" name="tel" value=""
+									/>
+								</li>
+								<li class="addContact">
+									<strong>
+										地址：
+									</strong>
+									<input type="text" placeholder="请输入详细地址" id="address" name="address" value=""
+									/>
+								</li>
+								<li>
+									<strong>
+										使用联系信息：
+									</strong>									
+								</li>
+								<li>
+									<div style="float:left;">
+										<input id="xinzeng" type="radio" onclick="contactinfo(true)" name="contactid" value="0" checked="checked" style="width:20px;"/>
+									</div>
+									<div style="float:left;">
+										<label for="xinzeng">新增联系信息</label>
+									</div>
+								</li>
+								<volist name="mycontact" id="contact">
+								<li>
+									<div style="float:left;">
+										<input id="contactid_{$contact.id}" onclick="contactinfo(false)" type="radio" name="contactid" value="{$contact.id}" style="width:20px;"/>
+									</div>
+									<div style="float:left;">
+										<label for="contactid_{$contact.id}">
+											<div>{$contact.truename} {$contact.tel}</div>
+											<div>{$contact.address}</div>
+										</label>
+									</div>
+								</li>
+								</volist>								
+								<li>
+									<strong>
+										支付方式：
+									</strong>
+									<!-- <input id="zfb" type="radio" name="zftype" value="0" checked="checked" style="width:20px;"/>
+									<label for="zfb">
+										<img src="{:ADDON_PUBLIC_PATH}/../Template/default/images/alipay_direct_icon.gif" width="60px" height="22px">
+									</label> -->									
+									<input id="xianx" type="radio" name="zftype" value="4" style="width:20px;" />
+									<label for="xianx">
+										<img src="{:ADDON_PUBLIC_PATH}/../Template/default/images/offline_icon.gif"	width="60px" height="22px">
+									</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="o_btn clearfix">
+						<input type="button" class="o_btn_back ts1" onclick="history.go(-1);"
+						value="返回" />
+						<input type="submit" class="o_btn_submit ts1" value="保存并付款" />
+					</div>
+				</div>				
+			</form>
+			<script>
+				var isaddcontact = true;
+				function contactinfo(bl){
+					if(bl){
+						$(".addContact").show();
+						isaddcontact=true;
+					}else{
+						$(".addContact").hide();
+						isaddcontact=false;
+					}
+				}
+				$(".dining_type dd").click(function() {
+					$(this).parent().children('.on').removeClass('on');
+					$(this).addClass('on');
+					$(this).parent().children('input').removeAttr('checked');
+					$(this).children('input').attr('checked', 'true');
+					$('#diningtype').attr('value', $(this).children('input').attr('value'));
+					var table_class = $(this).children('input').attr('id');
+					$('.desks').hide();
+					$('.' + table_class).show();
+				});
+				$('.desks dd').click(function() {
+					$(this).parent().children('.on').removeClass('on');
+					$(this).addClass('on');
+					$(this).parent().children('input').removeAttr('checked');
+					$(this).children('input').attr('checked', 'true');
+				});
+				function showTip(tipTxt) {
+					var div = document.createElement('div');
+					div.innerHTML = '<div class="deploy_ctype_tip"><p>' + tipTxt + '</p></div>';
+					var tipNode = div.firstChild;
+					$("#wrap").after(tipNode);
+					setTimeout(function() {
+						$(tipNode).remove();
+					},1500);
+				}
+				function tgSubmit() {
+					if ($('#hour')) {
+							if ($('#hour').val() == "") {
+								showTip('请选择就餐时间');
+								return false;
+							}
+					}
+					
+					if($("#table_0").attr("checked")=="checked" && $('input:radio[name="tablemanage_id"]:checked').val() == null){
+						showTip('请选择您就餐的桌台');
+						return false;
+					}
+					
+					if(isaddcontact){						
+						var userName = $('#truename').val();
+						if ($.trim(userName) == "") {
+							showTip('请填写姓名');
+							return false;
+						}
+						var userPhone = $("#tel").val();
+						if ($.trim(userPhone) == "") {
+							showTip('请填写您的手机号码');
+							return false;
+						}					
+						var patrn = /^0?(13[0-9]|15[0123456789]|18[0123456789]|14[0123456789])[0-9]{8}$/;
+						if (!patrn.exec($.trim(userPhone))) {
+							showTip('手机号格式错误');
+							return false;
+						}
+					}
+					return true;
+				}
+				function tables() {
+					//查询是否被占用
+					/* $.ajax({
+						url: '?g=Wap&m=Product&a=ajaxTables&token=3702&time=' + $('#buytimestamp').attr('value') + '&hour=' + $('#hour').attr('value'),
+						success: function(data) {
+							var tableids = data.split(',');
+							var count = tableids.length;
+							if (count) {
+								$('.radio_tableid').checked = false;
+								$('.f_order_list dd').removeClass('on');
+								$('.f_order_list dd').css('display', '');
+								for (i = 0; i < count; i++) {
+									var id = tableids[i];
+									if ($('#table_radio_' + id)) {
+										$('#table_radio_' + id).css('display', 'none')
+									}
+								}
+							}
+						}
+					}); */
+				}
+			</script>
+		</body>
+
+</html>

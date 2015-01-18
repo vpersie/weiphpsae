@@ -1,0 +1,106 @@
+<extend name="Base/common" />
+<block name="body">
+  <div class="span9 page_message">
+    <section id="contents"> 
+      <include file="Addons/_nav" /> 
+	  <div class="table-bar">
+        <div class="fl">
+          <empty name="model.extend">
+			<div class="tools">
+				餐厅：
+				<select id="sel_ct">
+					<volist name="list_ctdata" id="ctdata">
+					  <option value="{$ctdata.id}" <php> if($ctdata["id"] == $ctid){ echo 'selected="selected"';}</php> >{$ctdata.title}</option>
+					</volist>
+				</select>
+				<a class="btn" id="a_yhsave" href="javascript:;">保 存</a>
+			</div>
+          </empty>
+        </div>        
+      </div>
+    </section>
+	<div id="sel_div" style="width:900px;margin:10px;margin-left:20px;"></div>	
+  </div>
+</block>
+<block name="script"> 	
+<link rel="stylesheet" type="text/css" href="/Addons/MicroCatering/View/default/Public/selectorview/style.css" />
+<script type="text/javascript" src="/Addons/MicroCatering/View/default/Public/selectorview/PagerView.js"></script>
+<script type="text/javascript" src="/Addons/MicroCatering/View/default/Public/selectorview/TableView.js"></script>
+<script type="text/javascript" src="/Addons/MicroCatering/View/default/Public/selectorview/SelectorView.js"></script>
+<script type="text/javascript" src="/Addons/MicroCatering/View/default/Public/selectorview/jquery-powerSwitch-min.js"></script>
+<script type="text/javascript">
+$(function(){
+	var sel = new SelectorView('sel_div',eval({$selType}));	
+	sel.src.header = {
+		id			: 'id',
+		dishes_num	: '菜品编号',
+		name		: '菜名'
+	};
+	$(sel.selType).each(function(i,item){
+		sel.dsts[i].header = {
+			id			: 'id',
+			dishes_num	: '菜品编号',
+			name		: '菜名'
+		};
+		sel.dsts[i].dataKey = 'id';
+		sel.dsts[i].title = '已选';
+	});
+	
+	sel.src.dataKey = 'id';
+	sel.src.title = '可选';
+	sel.src.display.filter = true;
+	sel.src.display.pager = true;
+	sel.src.pager.size = 22;
+	sel.src.pager.maxButtons = 5;
+	//添加所有菜品
+	var dishesdatas = eval({$dishesdatas});	
+	//设置初始化数据	
+	$(sel.selType).each(function(j,jtem){
+		var selTypeDatas = jtem.dishesdatas;
+		$(dishesdatas).each(function(i,item){
+			
+			if($.inArray(item.id,selTypeDatas) != -1){
+				sel.dsts[j].add(item);
+				//删除
+				var index = $.inArray(item,dishesdatas);
+				dishesdatas.splice(index,1);
+			}
+		});
+	});
+	sel.src.addRange(dishesdatas);
+	
+	sel.render();
+
+	//请求优惠分类列表
+	$("#sel_ct").change(function(){
+		window.location.href = "{$sel_ct_url}".replace("%7Bid%7D",$(this).val());
+	});
+	
+	
+	
+	//保存
+	$("#a_yhsave").click(function(){
+		var saveurl ="{:U('saveyh?ctid='.$ctid)}";
+		_postAjax(saveurl,{ "yhdatas":sel.getSelectedKeys()},function(result){alert(result);});
+	});
+	
+	//ajax
+	var isstartajax = false;
+	function _postAjax(url,datas,backfn){
+		if(isstartajax){return false;}
+		isstartajax = true;
+		$.ajax({ 
+			url: url,
+			data:datas,			
+			type:"POST",
+			success: function(result){
+				isstartajax=false;
+				if(backfn){
+					backfn(result);
+				}
+			},error:function(){isstartajax=false;}
+		});
+	}
+});
+</script> 
+</block>
