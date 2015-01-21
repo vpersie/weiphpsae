@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+          <head>
+          <meta charset="utf-8">
+          <link href="css/mygb.css" rel="stylesheet" type="text/css">
+          <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+          <meta content="yes" name="apple-mobile-web-app-capable" />
+          <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+          <meta content="telephone=no" name="format-detection" />
+          <title>在线商城</title>
+          <link href="{:ADDON_PUBLIC_PATH}/css/news/index.css" rel="stylesheet" type="text/css">
+          <link href="{:ADDON_PUBLIC_PATH}/css/news/pro.css" rel="stylesheet" type="text/css">
+          <link href="{:ADDON_PUBLIC_PATH}/css/news/mygb.css" rel="stylesheet" type="text/css">
+          <link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/com/com.css"/>
+          <script>
+          
+              var JAVASCRIPT_LIB = (('\v' !== 'v') ? 'zepto' : 'jquery');
+              JAVASCRIPT_LIB="jquery";
+              document.write('<script src="{:ADDON_PUBLIC_PATH}/js/jquery.js"><\/script>'); 
+             window.onmessage = function(event){
+                  if(event.data.message != '')
+                  {
+                      $('#otherPage').remove();
+                  }else{
+                      $('#otherPage').show();
+                  }
+              }
+          </script>
+          <script src="{:ADDON_PUBLIC_PATH}/js/com/com.js"></script>
+          <script src="{:ADDON_PUBLIC_PATH}/js/news/TouchSlide.1.1.js"></script>
+          </head>
+          <body>
+<div id="wrap"> 
+            <!--页面头部--> 
+            <include file="./Addons/Shangcheng/View/default/Show/header.html" /> 
+            <!--焦点及链接-->
+            <section>
+    <div id="focus" class="focus">
+                <div class="hd">
+                  <ul>
+                  </ul>
+      </div>
+                <div class="bd">
+        <ul>
+                    <li><a href="huodong_605.html"><img alt="满200送100" data-pinit="registered" src="{:ADDON_PUBLIC_PATH}/images/0425ewm.jpg" /></a></li>
+                    <li><a href="newsdetail421_2.html"><img alt="抽免单" data-pinit="registered" src="{:ADDON_PUBLIC_PATH}/images/0523jcth.jpg" /></a></li>
+                    <li><a href="nanputuo_c3.html"><img alt="南普陀" data-pinit="registered" src="{:ADDON_PUBLIC_PATH}/images/0523nptxb.jpg" /></a></li>
+                    <li><a href="shoulichuangyi_c3.html"><img alt="手礼创意" data-pinit="registered" src="{:ADDON_PUBLIC_PATH}/images/0523jbjzq.jpg" /></a></li>
+                    <li><a href="search.html@keyword=_25u679C_25u51BB"><img alt="果冻" data-pinit="registered" src="{:ADDON_PUBLIC_PATH}/images/0604sggd.jpg" /></a></li>
+                    <li><a href="search.html@keyword=_25u7247_25u4ED4_25u7640"><img alt="片仔癀" data-pinit="registered" src="{:ADDON_PUBLIC_PATH}/images/pzh0929.jpg" /></a></li>
+                    <li><a href="Search.html@keyword=_25u571f_25u7b0b_25u51bb"><img alt="土笋冻" data-pinit="registered" src="{:ADDON_PUBLIC_PATH}/images/0523djttsd.jpg" /></a></li>
+                  </ul>
+      </div>
+              </div>
+  </section>
+            <!--热卖特惠链接-->
+            <nav class="p10">
+    <div class="itm1 flex packj"> <a class="it1" href="#">广告位</a> <a class="it1" href="#">广告位</a> <a class="it1" href="#">广告位</a> <a class="it1" href="#">广告位</a> </div>
+    <div class="itm2 flex packj"> <a class="it1" href="#">广告位</a> <a class="it1" href="#">广告位</a> <a class="it1" href="#">广告位</a> <a class="it1" href="#">广告位</a> </div>
+  </nav>
+            <!--推荐商品-->
+            <header>
+    <div class="flex packj alignc cd44">
+                <h2 class="tc it1 fenleix">推荐商品</h2>
+              </div>
+  </header>
+            <!--产品列表-->
+            <div class="prowrap">
+    <div class="cplbx">
+    			<volist name='link' id='vo'>
+                <article><a href="{:U('/addon/Shangcheng/Show/xiadan',array('id'=>$vo['id']))}" class="flex alignc libox">
+                  <div class="img_list">{$vo.litpic}</div>
+                  <div class="list_nr it1">
+                  <h2 class="cla pro_tit">{$vo.name}</h2>
+                  <p class="wzinx"><strong>￥{$vo.normalprice}.00</strong> <em>￥{$vo.price}.00</em></p>
+                </div>
+                  </a></article>
+                </volist>
+              </div>
+  </div>
+            <!--热销商品-->
+            <header>
+    <div class="flex packj alignc cd44">
+                <h2 class="tc it1 fenleix">热销商品</h2>
+              </div>
+  </header>
+            <!--产品列表-->
+            <div class="prowrap">
+    <div class="cplbx">
+    			<volist name='link' id='vo'>
+                <article><a href="{:U('/addon/Shangcheng/Show/xiadan',array('id'=>$vo['id']))}" class="flex alignc libox">
+                  <div class="img_list">{$vo.litpic}</div>
+                  <div class="list_nr it1">
+                  <h2 class="cla pro_tit">{$vo.name}</h2>
+                  <p class="wzinx"><strong>￥{$vo.normalprice}.00</strong> <em>￥{$vo.price}.00</em></p>
+                </div>
+                  </a></article>
+                </volist>
+              </div>
+  </div>
+          </div>
+
+<!--页面底部--> 
+<include file="./Addons/Shangcheng/View/default/Show/footer.html" /> 
+<script type="text/javascript">
+    TouchSlide({
+        slideCell: "#focus",
+        titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        mainCell: ".bd ul",
+        effect: "leftLoop",
+        autoPlay: true,//自动播放
+        autoPage: true, //自动分页
+        switchLoad: "_src" //切换加载，真实图片路径为"_src" 
+    });
+
+    function changeBranch(obj) {
+        var fil = "?";
+        if (window.location.href.indexOf("?") != -1)
+            fil = "&";
+        window.location.href = window.location.href.replace("branch", "b") + fil + "branch=" + $(obj).val();
+    }
+</script>
+</body>
+</html>

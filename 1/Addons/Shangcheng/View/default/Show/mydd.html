@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<title>商城在线</title>
+<meta charset="utf-8">
+<meta name="keywords" content="商城在线" />
+<meta name="description" content="商城在线" />
+<!--告诉设备忽略将页面中的数字识别为电话号码-->
+<meta content="telephone=no" name="format-detection" />
+<link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/com/com.css"/>
+</head>
+<body>
+<div class="com-content">
+<include file="./Addons/Shangcheng/View/default/Show/header.html" />
+<div class="com-content-area" id="js-com-content-area"> 
+  <!--content-->
+  <link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/tuan/tuan.css"/>
+  <script>
+          
+              var JAVASCRIPT_LIB = (('\v' !== 'v') ? 'zepto' : 'jquery');
+              JAVASCRIPT_LIB="jquery";
+              document.write('<script src="{:ADDON_PUBLIC_PATH}/js/jquery.js"><\/script>');
+              DOMIN.MAIN = './';
+              // uc浏览器添加书签功能 
+             window.onmessage = function(event){
+                  if(event.data.message != '')
+                  {
+                      $('#otherPage').remove();
+                  }else{
+                      $('#otherPage').show();
+                  }
+              }
+          </script> 
+  <script src="{:ADDON_PUBLIC_PATH}/js/com/com.js"></script>
+  <div class="page-role">
+    <div class="page-title"> <a class="return" href="javascript:history.back();void(0)">返 回</a>最新商品列表</div>
+    <div id="js-goodlist">
+      <div class="tuan-list1">
+        <table>
+          <tr class="mydd">
+            <td>商品名</td>
+            <td>价格</td>
+            <td>订购数量</td>
+            <td>下单时间</td>
+          </tr>
+          <volist name='mydd' id='vo'>
+            <tr>
+              <td width="200">{$vo.name||msubstr=0,15}</td>
+              <td width="50" class="mydd">{$vo.normalprice}.00</td>
+              <td width="90" class="mydd">{$vo.pcount}</td>
+              <td width="150" class="mydd">{$vo.odate}</td>
+            </tr>
+          </volist>
+        </table>
+      </div>
+      <div class="pxui-pages">{$page}</div>
+    </div>
+    <script type="text/tcl" id="js-goodlist-template">
+<div class="tuan-list">
+	<div class="img120">
+        <a href="<%=data.url;%>">
+        <dfn></dfn><img src="<%=data.imgpath;%>"/>
+        </a>
+        </div>
+	<a href="<%=data.url;%>" class="title"><%=data.title;%></a>
+	<a href="<%=data.url;%>" class="detail"><!--<%=data.description;%>--></a>
+	<p>
+		<span class="pxui-color-red">￥<%=data.saleprice;%></span>
+		<del class="pxui-color-gray">￥<%=data.market_price;%></del>
+		<span class="pxui-color-yellow"> <%if(data.falsity_sale == ''|| data.falsity_sale == null){%>0<%}else{%><%=data.falsity_sale;%><%}%>人</span>
+	</p>
+</div>
+</script> 
+    <!--content-end--> 
+  </div>
+  <include file="./Addons/Shangcheng/View/default/Show/footer.html" /> </div>
+</body>
+</html>

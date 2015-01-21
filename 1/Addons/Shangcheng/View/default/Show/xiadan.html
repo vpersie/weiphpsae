@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+        <head>
+        <title>{$res.name}</title>
+        <meta charset="utf-8">
+        <meta name="keywords" content="{$res.name}" />
+        <meta name="description" content="{$res.name}" />
+        <meta content="width=device-width, minimum-scale=1,initial-scale=1, maximum-scale=1, user-scalable=1;" id="viewport" name="viewport" />
+        <!--告诉设备忽略将页面中的数字识别为电话号码-->
+        <meta content="telephone=no" name="format-detection" />
+        <link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/com/com.css"/>
+        <script>
+		
+			var JAVASCRIPT_LIB = (('\v' !== 'v') ? 'zepto' : 'jquery');
+			JAVASCRIPT_LIB="jquery";
+            document.write('<script src="{:ADDON_PUBLIC_PATH}/js/jquery.js"><\/script>');
+			
+			
+            DOMIN.MAIN = './';
+            // uc浏览器添加书签功能 
+           window.onmessage = function(event){
+                if(event.data.message != '')
+                {
+                    $('#otherPage').remove();
+                }else{
+                    $('#otherPage').show();
+                }
+            }
+        </script>
+        <script src="{:ADDON_PUBLIC_PATH}/js/com/com.js"></script>
+        <script src="{:ADDON_PUBLIC_PATH}/js/login/px-verify.js"></script>
+        <script src="{:ADDON_PUBLIC_PATH}/js/com/template.js"></script>
+        <!--<script src="{:ADDON_PUBLIC_PATH}/js/com/jquery.snow.min.js"></script>
+		<script>
+		$(document).ready( function(){
+			$.fn.snow({ 
+				minSize: 5, 
+				maxSize: 50, 
+				newOn: 1000
+			});
+		});
+		</script>-->
+        </head>
+        <body>
+        <div class="com-content"> 
+          <script>
+                           
+                        function open_notice(id){
+                            setCookie('touch_notice_close',1);
+                            var url = 'new/info/'+id+'.html';
+                            window.location.href=url;
+                        }   
+                           
+                        var touch_notice_close = getCookie('touch_notice_close');
+                        if(touch_notice_close == '1' && typeof(document.getElementById('js-com-notification2')) != 'undefined' && document.getElementById('js-com-notification2') != null){
+                            document.getElementById('js-com-notification2').style.display = 'none';
+                        }
+			//if( document.cookie.match(new RegExp("(^| )PHPSESSID=([^;]*)(;|$)")) ){
+			  //  document.getElementById('js-com-notification').style.display = 'none';
+		//	}
+			</script> 
+          <include file="./Addons/Shangcheng/View/default/Show/header.html" />
+          <div class="com-content-area" id="js-com-content-area"> 
+            <!--content-->
+            <div class="page-role good-page">
+              <link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/good/index.css" />
+              <div class="page-title"><a class="return" href="javascript:history.back();void(0)">返 回</a>{$res.name||msubstr=0,10}-商品详情</div>
+              <div class="pxui-area">
+                <h1>{$res.name}</h1>
+                <div class="touchslider">
+                  <div class="touchslider-viewport" style="height:280px;overflow:hidden">
+                    <div>
+                      <div class="touchslider-item"><a><span class="img320"><dfn></dfn>{$res.litpic}</span></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pxui-list" data-model="radio"> <a>【踏青一站购】361°满99减10、199减20、299减30<i class="arrow-right"></i></a>
+                  <div class="pxui-list-con" style="display:none;"> 
+                    <!--  <strong>【踏青一站购】361°满99减10、199减20、299减30</strong><br/>--> 
+                    2014-04-08 09:40  到 2014-04-20 23:59<br/>
+                    <strong>·</strong> 满<b>99元</b>,减<b>10元</b><br>
+                    <strong>·</strong> 满<b>199元</b>,减<b>20元</b><br>
+                    <strong>·</strong> 满<b>299元</b>,减<b>30元</b><br>
+                    <!--  --> 
+                  </div>
+                  <div style="clear:both;height:4px;margin: 0;padding: 0px; width:100%;"></div>
+                </div>
+                <form action="{:U('/addon/Shangcheng/Show/dd')}" name="frm" method="post">
+                  <ul class="goodinfo" id="js-goodinfo">
+                    <li> <b name="detail_mao" id="detail_mao">出售价:</b>
+                      <div>
+                        <p><strong class="pxui-color-red">￥{$res.normalprice}.00</strong> <del class="pxui-color-gray">{$res.price}.00</del></p>
+                      </div>
+                    </li>
+                    <li> <b>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费:</b>
+                      <div>
+                        <p> <span>免运费</span> </p>
+                      </div>
+                    </li>
+                    <li> <b>服&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务:</b>
+                      <div>
+                        <p> 由土豪猫源码网合并提供售后服务。 </p>
+                      </div>
+                    </li>
+                    <script type="text/javascript">
+				  function onlyNonNegative(obj){
+					 var inputChar = event.keyCode; 
+					 //alert(event.keyCode); 
+					 //1.判断是否有多于一个小数点 
+					 if(inputChar==190 ) {
+						 //输入的是否为. 
+						 var index1 = obj.value.indexOf(".") + 1;//取第一次出现.的后一个位置 
+						 var index2 = obj.value.indexOf(".",index1); while(index2!=-1) { //alert("有多个."); 
+						 obj.value = obj.value.substring(0,index2); index2 = obj.value.indexOf(".",index1); } } //2.如果输入的不是.或者不是数字，替换 g:全局替换 
+						 obj.value = obj.value.replace(/[^(\d|.)]/g,""); } 
+				  </script>
+                    <li > <b style="line-height:39px;">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量:</b>
+                      <div>
+                        <p>
+                          <input name="pcount" type="number" AUTOCOMPLETE=OFF onKeyUp="onlyNonNegative(this)"/>
+                        </p>
+                      </div>
+                    </li>
+                    <!--size-message-end-->
+                  </ul>
+                  <input type="submit" class="pxui-light-button addtocart" value="立即结算"/>
+                  <input type="hidden" name="id" value="{$res.id}">
+                </form>
+                <h3>商品详细说明</h3>
+                <div></div>
+                <div class="pxui-gray-button">{$res.desc}</div>
+                <h3>服务承诺<a href="#">返回顶部<i class="arrow2-top"></i></a></h3>
+                <ul class="services">
+                  <li><i></i> 正品保证 假一赔十</li>
+                  <li><i></i> 15天无理由免邮退换货</li>
+                  <li><i></i> 10天保值 差价返还</li>
+                  <li><i></i> 自营商品满 99 包邮</li>
+                  <li><i></i> 货到付款 全国范围</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <include file="./Addons/Shangcheng/View/default/Show/footer.html" /> </div>
+</body>
+</html>

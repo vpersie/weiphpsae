@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<title>商城在线</title>
+<meta charset="utf-8">
+<meta name="keywords" content="商城在线" />
+<meta name="description" content="商城在线" />
+<!--告诉设备忽略将页面中的数字识别为电话号码-->
+<meta content="telephone=no" name="format-detection" />
+<link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/com/com.css"/>
+</head>
+<body>
+<div class="com-content"> <include file="./Addons/Shangcheng/View/default/Show/header.html" />
+  <div class="com-content-area" id="js-com-content-area"> 
+    <!--content-->
+    <link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/tuan/tuan.css"/>
+    <script>
+          
+              var JAVASCRIPT_LIB = (('\v' !== 'v') ? 'zepto' : 'jquery');
+              JAVASCRIPT_LIB="jquery";
+              document.write('<script src="{:ADDON_PUBLIC_PATH}/js/jquery.js"><\/script>');
+              
+              
+              DOMIN.MAIN = './';
+              // uc浏览器添加书签功能 
+             window.onmessage = function(event){
+                  if(event.data.message != '')
+                  {
+                      $('#otherPage').remove();
+                  }else{
+                      $('#otherPage').show();
+                  }
+              }
+          </script> 
+    <script src="{:ADDON_PUBLIC_PATH}/js/com/com.js"></script>
+    <div class="page-role">
+      <div class="page-title"> <a class="return" href="javascript:history.back();void(0)">返 回</a>搜索商品列表结果</div>
+      <div id="js-goodlist">
+        <volist name='list' id='vo'>
+          <div class="tuan-list">
+            <div class="img120"> <a href="{:U('/addon/Shangcheng/Show/xiadan',array('id'=>$vo['id']))}"><dfn></dfn>{$vo.litpic}</a> </div>
+            <a href="{:U('/addon/Shangcheng/Show/xiadan',array('id'=>$vo['id']))}"  class="title">{$vo.name}</a> <a href="{:U('/addon/Shangcheng/Show/xiadan',array('id'=>$vo['id']))}"  class="detail"><!----></a>
+            <p> <span class="pxui-color-red">￥{$vo.normalprice}.00</span> <del class="pxui-color-gray">￥{$vo.price}.00</del> <span class="pxui-color-yellow"></p>
+          </div>
+        </volist>
+      </div>
+      <div class="pxui-pages">{$page}</div>
+    </div>
+    <!--content-end--> 
+  </div>
+  <include file="./Addons/Shangcheng/View/default/Show/footer.html" /> </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+        <head>
+        <title>{$res.name}</title>
+        <meta charset="utf-8">
+        <meta name="keywords" content="{$res.name}" />
+        <meta name="description" content="{$res.name}" />
+        <meta content="width=device-width, minimum-scale=1,initial-scale=1, maximum-scale=1, user-scalable=1;" id="viewport" name="viewport" />
+        <!--告诉设备忽略将页面中的数字识别为电话号码-->
+        <meta content="telephone=no" name="format-detection" />
+        <link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/com/com.css"/>
+        <script>
+		
+			var JAVASCRIPT_LIB = (('\v' !== 'v') ? 'zepto' : 'jquery');
+			JAVASCRIPT_LIB="jquery";
+            document.write('<script src="{:ADDON_PUBLIC_PATH}/js/jquery.js"><\/script>');
+			
+			
+            DOMIN.MAIN = './';
+            // uc浏览器添加书签功能 
+           window.onmessage = function(event){
+                if(event.data.message != '')
+                {
+                    $('#otherPage').remove();
+                }else{
+                    $('#otherPage').show();
+                }
+            }
+        </script>
+        <script src="{:ADDON_PUBLIC_PATH}/js/com/com.js"></script>
+        <script src="{:ADDON_PUBLIC_PATH}/js/login/px-verify.js"></script>
+        <script src="{:ADDON_PUBLIC_PATH}/js/com/template.js"></script>
+        <!--<script src="{:ADDON_PUBLIC_PATH}/js/com/jquery.snow.min.js"></script>
+		<script>
+		$(document).ready( function(){
+			$.fn.snow({ 
+				minSize: 5, 
+				maxSize: 50, 
+				newOn: 1000
+			});
+		});
+		</script>-->
+        </head>
+        <body>
+        <div class="com-content"> 
+          <script>
+                           
+                        function open_notice(id){
+                            setCookie('touch_notice_close',1);
+                            var url = 'new/info/'+id+'.html';
+                            window.location.href=url;
+                        }   
+                           
+                        var touch_notice_close = getCookie('touch_notice_close');
+                        if(touch_notice_close == '1' && typeof(document.getElementById('js-com-notification2')) != 'undefined' && document.getElementById('js-com-notification2') != null){
+                            document.getElementById('js-com-notification2').style.display = 'none';
+                        }
+			//if( document.cookie.match(new RegExp("(^| )PHPSESSID=([^;]*)(;|$)")) ){
+			  //  document.getElementById('js-com-notification').style.display = 'none';
+		//	}
+			</script> 
+          <include file="./Addons/Shangcheng/View/default/Show/header.html" />
+          <div class="com-content-area" id="js-com-content-area"> 
+            <!--content-->
+            <div class="page-role good-page">
+              <link type="text/css" rel="stylesheet" href="{:ADDON_PUBLIC_PATH}/css/good/index.css" />
+              <div class="page-title"><a class="return" href="javascript:history.back();void(0)">返 回</a>收货地址管理</div>
+              <div class="pxui-area">
+                <h3>收货地址管理</h3>
+                <div class="pxui-gray-button1">
+                  <form class="form" action="{:U('/addon/Shangcheng/Show/addr')}" method="post">
+                    <input type="text" name="sheng"/>
+                    <label for="name">省</label>
+                    <input type="text" name="shi"/>
+                    <label for="email">市</label>
+                    <input type="text" name="xian"/>
+                    <label for="web">县</label>
+                    <br/>
+                    <input type="text" name="jie" size="50"/>
+                    <label for="web">街道</label>
+                    <p class="submit">
+                      <input type="submit" value="确认提交" />
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <include file="./Addons/Shangcheng/View/default/Show/footer.html" /> </div>
+</body>
+</html>
