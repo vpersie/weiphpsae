@@ -1,6 +1,6 @@
 <?php
 return array (
-		'title' => '简约V-1',
-		'author' => 'jacy',
-		'desc' => 'banner尺寸大小 640X300'
-);					
+		'title' => 'SimpleWin8V1',
+		'author' => 'cozin',
+		'desc' => 'banner图片规格是640x300 分类图标是60x60或以上规格正方形白色图标'
+);
