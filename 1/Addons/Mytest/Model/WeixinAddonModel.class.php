@@ -10,7 +10,17 @@ class WeixinAddonModel extends WeixinModel{
 	function reply($dataArr, $keywordArr = array()) {
 		$config = getAddonConfig ( 'Mytest' ); // 获取后台插件的配置参数	
 		//dump($config);
+		$param['token'] = get_token();
+		$param['openid'] =get_openid();
+		$url = addons_url('Card://Card/show' , $param);
 
+		$articles[0] = array(
+			'Title' => $config['title'],
+            'Description' => $config ['address'],
+			'PicUrl' => SITE_URL . '/Addons/Card/View/default/Public/cover.png',
+		    'Url' => $url
+			);
+        $this->replyNews ($articles);
 	} 
 
 	// 关注公众号事件

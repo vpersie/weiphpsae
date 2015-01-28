@@ -12,8 +12,8 @@ use Common\Controller\Addon;
 
         public $info = array(
             'name'=>'Mytest',
-            'title'=>'测试第二次',
-            'description'=>'测试我这是一个临时描述',
+            'title'=>'会员卡',
+            'description'=>'测试我这是一个临时描述提供会员卡基本功能：会员卡制作、会员管理、通知发布、优惠券发布等功能，用户可在此基础上扩展自己的具体业务需求，如积分、充值、签到等',
             'status'=>1,
             'author'=>'无名',
             'version'=>'0.1',
