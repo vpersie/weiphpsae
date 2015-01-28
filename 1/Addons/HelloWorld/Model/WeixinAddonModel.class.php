@@ -9,8 +9,9 @@ use Home\Model\WeixinModel;
  */
 class WeixinAddonModel extends WeixinModel {
 	function reply($dataArr, $keywordArr = array()) {
-		$this->replyText ( '欢迎您来到WeiPHP的世界和哈呵呵呵-_-' );
-	}
+		$RES=$this->replyText ( '欢迎您来到WeiPHP的世界和哈呵呵呵-_-' );
+        return $RES;	
+    }
 	
 	// 关注公众号事件
 	public function subscribe() {
