@@ -33,7 +33,7 @@ class WeixinAddonModel extends WeixinModel{
         	$this->replyText($reply);
         }
 	} */
-        $res=$this->replyText('你已退出成语接龙模式，再次回复【成语接龙】即可进入。。');
+        $this->replyText('你已退出成语接龙模式，再次回复【成语接龙】即可进入。。');
        
 }
 
