@@ -1123,7 +1123,7 @@ function get_cover_url($cover_id) {
 	if (empty ( $url ))
 		return '';
 	
-	return $url;
+	return SITE_URL.$url;
 }
 // 兼容旧方法
 function get_picture_url($cover_id) {
