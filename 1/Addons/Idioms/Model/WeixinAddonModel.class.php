@@ -33,8 +33,8 @@ class WeixinAddonModel extends WeixinModel{
         	$this->replyText($reply);
         }
 	} */
-        $this->reply('你已退出成语接龙模式，再次回复【成语接龙】即可进入。。');
-        
+        $res=$this->replyText('你已退出成语接龙模式，再次回复【成语接龙】即可进入。。');
+        return $res;
 }
 
 	// 关注公众号事件
