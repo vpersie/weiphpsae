@@ -10,7 +10,7 @@ class WeixinAddonModel extends WeixinModel{
 	function reply($dataArr, $keywordArr = array()) {
 		$config = getAddonConfig ( 'Idioms' ); // 获取后台插件的配置参数	
 		//dump($config);
-		$api = 'http://i.itpk.cn/api.php?question=@cy';
+        /*$api = 'http://i.itpk.cn/api.php?question=@cy';
         if($dataArr['Content']=='成语接龙' || $dataArr['Content']=='Idioms'){
         	$keywordArr['step'] = 'input';
         	set_user_status('Idioms', $keywordArr);
@@ -32,7 +32,9 @@ class WeixinAddonModel extends WeixinModel{
         	set_user_status('Idioms' , $keywordArr);
         	$this->replyText($reply);
         }
-	} 
+	} */
+        $this->reply('你已退出成语接龙模式，再次回复【成语接龙】即可进入。。');
+        
 }
 
 	// 关注公众号事件
